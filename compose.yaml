@@ -1,0 +1,34 @@
+# $ docker-compose build --no-cache --compress
+# $ docker-compose up --detach
+# $ docker-compose down --rmi all
+
+version: '3.8'
+
+services:
+  frontend:
+    container_name: 'Docker コンテナ名'
+    image: 'Docker イメージ名':latest
+    build:
+      context: ./src/frontend
+    volumes:
+      - ./src/frontend:/usr/local/src
+    ports:
+      - 3000:3000
+      - 8087:8087
+      - 24678:24678
+    depends_on:
+      - backend
+    shm_size: '1gb'
+    tty: true
+
+  backend:
+    container_name: 'Docker コンテナ名'
+    image: 'Docker イメージ名':latest
+    build:
+      context: ./src/backend
+    volumes:
+      - ./src/backend:/usr/local/src
+    ports:
+      - '8000:8000'
+    shm_size: '1gb'
+    tty: true
